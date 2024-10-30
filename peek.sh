@@ -10,7 +10,7 @@ fi
 
 # check the 2X
 line_count=$(wc -l < "$1")
-if (( line_count <= 2 * $lines )); then
+if (( $line_count <= 2 * $lines )); then
 	cat "$1"
 else
   echo "WARNING, the file is really big tbh, only displaying the first and last $lines lines"

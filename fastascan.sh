@@ -5,8 +5,7 @@
 # Last edited Mon Nov 25
 
 
-# Identifying the arguments (directory and number of lines)
-
+################################# Identifying the arguments (directory and number of lines) ###############################
 
 directory="$1"
 
@@ -19,13 +18,32 @@ fi
 
 # default num lines is 0
 if [[ -z "$lines" ]]; then
-	directory="0"
+	lines="0"
 fi
 
-echo $directory is the directory we are searching in and $lines is the number of lines we will be using for displaying content
+############################################## Welcome message ##########################################
+
+echo Hello bash user! Welcome to $directory!
+echo
+echo We are just going to be taking a quick look around at the fasta files in this folder with help from your little friend fastascan.sh.
+echo
+echo Lets get started!
+echo
+
+########### Identifying fasta files in 'directory'  ##############
+
+#find $directory -name "*.fa" -or -name "*.fasta"
+
+numfafiles=$(find $directory -name "*.fa" -or -name "*.fasta" | wc -l)
+
+echo It looks like there are $numfafiles fasta files in this directory
+echo
 
 
-# Identifying fasta files in 'directory'
+#### Iterating through fasta files ######
+#find $directory -name "*.fa" -or -name "*.fasta" 
 
-find $directory -name "*.fa" -or -name "*.fasta"
+find $directory -name "*.fa" -or -name "*.fasta" > fastafiles.txt
+awk -F'/' '{print "Fasta file: " $NF "\n"}' fastafiles.txt 
 
+#$(find $directory -name "*.fa" -or -name "*.fasta" | awk -F'/' '{print $NF}')

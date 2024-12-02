@@ -41,18 +41,32 @@ echo
 
 
 #### Iterating through fasta files ######
-find $directory -name "*.fa" -or -name "*.fasta" > fastafiles.txt
+#find $directory -name "*.fa" -or -name "*.fasta" > fastafiles.txt
 
-awk -F'/' '{print "############################################"; 
-print "######  " $NF "  #####";
-print "############################################";
-print grep -c ">"}' fastafiles.txt
-
+#awk -F'/' '{print "############################################"; 
+#print "######  " $NF "  #####";
+#print "############################################" "\n"}' fastafiles.txt
 
 
+#awk '/^>/{print $0}' cysd_archaea.uniprot.fa | wc -l
+
+#for file in fastafiles.txt; do
+#	echo "############################################"
+#	echo "######  " $file "  #####"
+#	echo "############################################"
+#	echo
+#done
+
+find $directory -name "*.fa" -or -name "*.fasta" | while read i; do
+	echo "############################################"
+	awk -F'/' '{print $NF}'
+	echo "############################################"
+	echo
+done
 
 
 
+#awk -F'/' '{print $NF}' $i
 
 
 

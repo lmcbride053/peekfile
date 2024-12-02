@@ -59,7 +59,7 @@ echo
 #done
 counter="1"
 find $directory -name "*.fa" -or -name "*.fasta" | while read i; do
-	echo "############################################"
+	echo "####################" $counter "########################"
 	awk -F'/' '{print $NF}' fastafiles.txt | awk "NR == $counter"
 	echo The File path for this file is $i
 	echo it has $(grep ">" $i | wc -l) sequences
@@ -69,6 +69,17 @@ find $directory -name "*.fa" -or -name "*.fasta" | while read i; do
   		echo This file is not a symlink
   	fi
   	echo The total sequence length of this file is: $(echo $(grep ">" -v $i) | awk '!/>/{gsub(/-/, "", $0); print $0}' | awk '!/>/{gsub(/ /, "", $0); print $0}' | wc -c)
+  	echo
+  	echo sneak peak at contents:
+  	echo
+    line_count=$(wc -l < "$i")
+  	if (( $line_count <= 2 * $lines )); then
+		cat "$i"
+	else
+  		head -n "$lines" "$i"
+  		echo ...
+  		tail -n "$lines" "$i"
+	fi
 	echo "############################################"
 	echo  
 	#echo $counter

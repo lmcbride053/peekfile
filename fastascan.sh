@@ -30,9 +30,7 @@ echo
 echo Lets get started!
 echo
 
-########### Identifying fasta files in 'directory'  ##############
-
-#find $directory -name "*.fa" -or -name "*.fasta"
+########### Identifying num fasta files and unique ids in 'directory'  ##############
 
 numfafiles=$(find $directory -name "*.fa" -or -name "*.fasta" | wc -l)
 
@@ -41,8 +39,9 @@ echo
 echo There are $(grep ">" $(find $directory -name "*.fa" -or -name "*.fasta") | awk '{gsub(/:/, " ", $0); print $2}' | sort | uniq -c | wc -l) unique Fasta Ids in this folder
 echo
 
-#### Iterating through fasta files ######
-#find $directory -name "*.fa" -or -name "*.fasta" > fastafiles.txt
+#### creating text file to iterate through for awk names ######
+
+find $directory -name "*.fa" -or -name "*.fasta" > fastafiles.txt
 
 #awk -F'/' '{print "############################################"; 
 #print "######  " $NF "  #####";
@@ -59,8 +58,8 @@ echo
 #done
 counter="1"
 find $directory -name "*.fa" -or -name "*.fasta" | while read i; do
-	echo "####################" $counter "########################"
-	awk -F'/' '{print $NF}' fastafiles.txt | awk "NR == $counter"
+	echo "####################" $(awk -F'/' '{print $NF}' fastafiles.txt | awk "NR == $counter") "########################"
+	echo File $counter
 	echo The File path for this file is $i
 	echo it has $(grep ">" $i | wc -l) sequences
 	if [[ -h $i ]]; then 
@@ -80,11 +79,13 @@ find $directory -name "*.fa" -or -name "*.fasta" | while read i; do
   		echo ...
   		tail -n "$lines" "$i"
 	fi
-	echo "############################################"
+	echo "##################################################################################"
 	echo  
 	#echo $counter
 	counter=$(($counter+1))
 done
+
+rm fastafiles.txt
 
 #find $directory -name "*.fa" -or -name "*.fasta" | while read i; do
 #	echo "############################################"

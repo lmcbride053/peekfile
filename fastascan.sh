@@ -56,15 +56,27 @@ echo
 #	echo "############################################"
 #	echo
 #done
-
+counter="1"
 find $directory -name "*.fa" -or -name "*.fasta" | while read i; do
 	echo "############################################"
-	awk -F'/' '{print $NF}'
+	awk -F'/' '{print $NF}' fastafiles.txt | awk "NR == $counter"
+	echo The File path for this file is $i
+	echo it has $(grep ">" $i | awk -F' ' '{print $1}' | sort | uniq -c | wc -l) unique fasta IDs
 	echo "############################################"
 	echo
+	#echo $counter
+	counter=$(($counter+1))
 done
 
+#find $directory -name "*.fa" -or -name "*.fasta" | while read i; do
+#	echo "############################################"
+#	grep ">" $i | awk -F' ' '{print $1}' | sort | uniq -c | wc -l
+#	echo "############################################"
+#	echo
+#done
 
+
+#awk -F' ' '{print $1}' $i | sort | uniq -c
 
 #awk -F'/' '{print $NF}' $i
 

@@ -2,7 +2,7 @@
 
 #### ALG MIDTERM 3 ####
 
-# Last edited Mon Nov 25
+# Last edited Mon Dec 2
 
 
 ################################# Identifying the arguments (directory and number of lines) ###############################
@@ -43,19 +43,10 @@ echo
 
 find $directory -name "*.fa" -or -name "*.fasta" > fastafiles.txt
 
-#awk -F'/' '{print "############################################"; 
-#print "######  " $NF "  #####";
-#print "############################################" "\n"}' fastafiles.txt
 
 
-#awk '/^>/{print $0}' cysd_archaea.uniprot.fa | wc -l
+############# Bulk of the assignment ##################
 
-#for file in fastafiles.txt; do
-#	echo "############################################"
-#	echo "######  " $file "  #####"
-#	echo "############################################"
-#	echo
-#done
 counter="1"
 find $directory -name "*.fa" -or -name "*.fasta" | while read i; do
 	echo "####################" $(awk -F'/' '{print $NF}' fastafiles.txt | awk "NR == $counter") "########################"
@@ -87,19 +78,4 @@ done
 
 rm fastafiles.txt
 
-#find $directory -name "*.fa" -or -name "*.fasta" | while read i; do
-#	echo "############################################"
-#	grep ">" $i | awk -F' ' '{print $1}' | sort | uniq -c | wc -l
-#	echo "############################################"
-#	echo
-#done
-#echo it has $(grep ">" $i | awk -F' ' '{print $1}' | sort | uniq -c | wc -l) unique fasta IDs
 
-#awk -F' ' '{print $1}' $i | sort | uniq -c
-
-#awk -F'/' '{print $NF}' $i
-
-
-# echo $(grep ">" -v cysd_archaea.uniprot.fa) | awk '!/>/{gsub(/-/, "", $0); print $0}' | awk '!/>/{gsub(/ /, "", $0); print $0}' | wc -c
-
-#awk '{gsub(/:/, " ", $0); print $1}'

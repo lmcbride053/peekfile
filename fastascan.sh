@@ -41,9 +41,20 @@ echo
 
 
 #### Iterating through fasta files ######
-#find $directory -name "*.fa" -or -name "*.fasta" 
-
 find $directory -name "*.fa" -or -name "*.fasta" > fastafiles.txt
-awk -F'/' '{print "Fasta file: " $NF "\n"}' fastafiles.txt 
 
-#$(find $directory -name "*.fa" -or -name "*.fasta" | awk -F'/' '{print $NF}')
+awk -F'/' '{print "############################################"; 
+print "######  " $NF "  #####";
+print "############################################";
+print grep -c ">"}' fastafiles.txt
+
+
+
+
+
+
+
+
+
+
+

@@ -38,7 +38,8 @@ numfafiles=$(find $directory -name "*.fa" -or -name "*.fasta" | wc -l)
 
 echo It looks like there are $numfafiles fasta files in this directory
 echo
-
+echo There are $(grep ">" $(find $directory -name "*.fa" -or -name "*.fasta") | awk '{gsub(/:/, " ", $0); print $2}' | sort | uniq -c | wc -l) unique Fasta Ids in this folder
+echo
 
 #### Iterating through fasta files ######
 #find $directory -name "*.fa" -or -name "*.fasta" > fastafiles.txt
@@ -61,7 +62,6 @@ find $directory -name "*.fa" -or -name "*.fasta" | while read i; do
 	echo "############################################"
 	awk -F'/' '{print $NF}' fastafiles.txt | awk "NR == $counter"
 	echo The File path for this file is $i
-	echo it has $(grep ">" $i | awk -F' ' '{print $1}' | sort | uniq -c | wc -l) unique fasta IDs
 	echo it has $(grep ">" $i | wc -l) sequences
 	if [[ -h $i ]]; then 
   		echo This file is a symlink;
@@ -81,7 +81,7 @@ done
 #	echo "############################################"
 #	echo
 #done
-
+#echo it has $(grep ">" $i | awk -F' ' '{print $1}' | sort | uniq -c | wc -l) unique fasta IDs
 
 #awk -F' ' '{print $1}' $i | sort | uniq -c
 
@@ -90,4 +90,4 @@ done
 
 # echo $(grep ">" -v cysd_archaea.uniprot.fa) | awk '!/>/{gsub(/-/, "", $0); print $0}' | awk '!/>/{gsub(/ /, "", $0); print $0}' | wc -c
 
-
+#awk '{gsub(/:/, " ", $0); print $1}'

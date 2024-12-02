@@ -62,8 +62,15 @@ find $directory -name "*.fa" -or -name "*.fasta" | while read i; do
 	awk -F'/' '{print $NF}' fastafiles.txt | awk "NR == $counter"
 	echo The File path for this file is $i
 	echo it has $(grep ">" $i | awk -F' ' '{print $1}' | sort | uniq -c | wc -l) unique fasta IDs
+	echo it has $(grep ">" $i | wc -l) sequences
+	if [[ -h $i ]]; then 
+  		echo This file is a symlink;
+  	else
+  		echo This file is not a symlink
+  	fi
+  	echo The total sequence length of this file is: $(echo $(grep ">" -v $i) | awk '!/>/{gsub(/-/, "", $0); print $0}' | awk '!/>/{gsub(/ /, "", $0); print $0}' | wc -c)
 	echo "############################################"
-	echo
+	echo  
 	#echo $counter
 	counter=$(($counter+1))
 done
@@ -81,6 +88,6 @@ done
 #awk -F'/' '{print $NF}' $i
 
 
-
+# echo $(grep ">" -v cysd_archaea.uniprot.fa) | awk '!/>/{gsub(/-/, "", $0); print $0}' | awk '!/>/{gsub(/ /, "", $0); print $0}' | wc -c
 
 

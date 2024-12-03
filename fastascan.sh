@@ -1,3 +1,5 @@
+#!/bin/bash
+
 #### FASTASCAN SCRIPT ####
 
 #### ALG MIDTERM 3 ####

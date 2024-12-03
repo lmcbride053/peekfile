@@ -64,7 +64,10 @@ echo
 
 echo It looks like there are $numfafiles fasta files in this directory
 echo
-echo There are $(grep ">" $(find $directory -name "*.fa" -or -name "*.fasta") | awk '{gsub(/:/, " ", $0); print $2}' | sort | uniq -c | wc -l) unique Fasta Ids in this folder
+if [[ $numfafiles -gt 1 ]]; then
+	echo There are $(grep ">" $(find $directory -name "*.fa" -or -name "*.fasta") | awk '{gsub(/>/, " ", $0); print $2}' | sort | uniq -c | wc -l) unique Fasta Ids in this folder
+else echo There are $(grep ">" $(find $directory -name "*.fa" -or -name "*.fasta") | awk '{gsub(/>/, " ", $0); print $1}' | sort | uniq -c | wc -l) unique Fasta Ids in this folder
+fi
 echo
 
 #### creating text file to iterate through for awk names ######

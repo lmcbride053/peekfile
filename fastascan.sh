@@ -108,6 +108,15 @@ find $directory -name "*.fa" -or -name "*.fasta" | while read i; do
 	counter=$(($counter+1))
 done
 
+echo
+echo And there you have it, hope this was informative. for any issues or inquiries please contact fastascan.sh creator by email: 
+echo Liam McBride
+echo lmcbride053@gmail.com
+echo
+echo
+
+
+
 rm fastafiles.txt
 
-
+rm seq.txt
